@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.client
+    depends_on:
+      - grpc-server
     environment:
-      SERVER_ADDR: grpc:8080
-
-      
+      SERVER_ADDR: grpc-server:8080

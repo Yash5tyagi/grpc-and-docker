@@ -8,4 +8,5 @@ RUN go mod download
 
 COPY ./server ./server
 COPY ./proto ./proto
-CMD ["go", "run", "server/main.go"]
+WORKDIR /dist/server
+CMD ["go", "run", "."]

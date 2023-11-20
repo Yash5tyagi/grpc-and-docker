@@ -3,17 +3,15 @@ package main
 import (
 	pb "GRPC/proto"
 	"log"
+	"os"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-const (
-	port = ":8080"
-)
-
 func main() {
-	conn, err := grpc.Dial("localhost"+port, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	serverAddr := os.Getenv("SERVER_ADDR")
+	conn, err := grpc.Dial(serverAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("Did not connect: %v", err)
 	}
@@ -25,8 +23,8 @@ func main() {
 		Names: []string{"Yash", "Alice", "Bob"},
 	}
 
-	callSayHello(client)
 	callSayHelloServerStream(client, names)
+	callSayHello(client)
 	callSayHelloClientStream(client, names)
 	callSayHelloBidirectionalStream(client, names)
 }
