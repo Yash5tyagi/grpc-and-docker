@@ -1,0 +1,11 @@
+FROM golang:latest
+
+
+WORKDIR /api
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+
+COPY ./client ./client
+COPY ./proto ./proto
+CMD ["go", "run", "client/main.go"]
