@@ -5,11 +5,13 @@ import (
 	"log"
 	"os"
 
+	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
 func main() {
+	godotenv.Load(".env")
 	serverAddr := os.Getenv("SERVER_ADDR")
 	conn, err := grpc.Dial(serverAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
